@@ -1,0 +1,11 @@
+##fileformat=VCFv4.2
+##fileDate=20230725
+##source=manual
+##reference=genome_2.fa
+##contig=<ID=chr1,length=24,assembly=dummy,species="dummy">
+##phasing=none
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	sample1	sample2
+chr1	11	.	C	T	.	PASS	NS=2;DP=60;AF=0.25	GT:DP	0/1:30	1/1:30
+chr1	14	.	C	A	.	PASS	NS=2;DP=60;AF=0.25	GT:DP	0/1:30	1/1:30
+chr1	17	.	A	C	.	PASS	NS=3;DP=60;AF=0.25	GT:DP	1/1:30	0/1:30

@@ -9,7 +9,7 @@ c_ml = "docker://khench/re_load:v0.1"
 code_dir = os.getcwd()
 
 rule all:
-  input: expand("results/{genome}/data/dummy/genes.gtf.gz", genome = GENOMES)
+  input: expand("results/{genome}/genotypes_{genome}_ann.vcf", genome = GENOMES)
 
 rule index_genome:
   input: "data/genomes/{genome}.fa"
@@ -82,14 +82,14 @@ rule setup_dp_env:
       conf = "results/{genome}/snpEff.config"
     output:
       snp_fa = "results/{genome}/data/genomes/dummy.fa",
-      snp_gff = "results/{genome}/data/dummy/genes.gtf.gz"
+      snp_gff = "results/{genome}/data/dummy/genes.gtf"
     params:
       snpeff_path = "results/{genome}"
     shell:
       """
       mkdir -p {params.snpeff_path}/data/dummy {params.snpeff_path}/data/genomes
       cd {code_dir}/{params.snpeff_path}/data/dummy
-      ln -s {code_dir}/{input.gtf} ./genes.gtf.gz
+      ln -s {code_dir}/{input.gtf} ./genes.gtf
       cd {code_dir}/{params.snpeff_path}/data/genomes
       ln -s {code_dir}/{input.fa} ./dummy.fa
       """
@@ -102,7 +102,7 @@ rule create_snpeff_db:
       prot = "results/{genome}/data/dummy/protein.fa",
       conf = "results/{genome}/snpEff.config",
       snp_fa = "results/{genome}/data/genomes/dummy.fa",
-      snp_gff = "results/{genome}/data/dummy/genes.gtf.gz"
+      snp_gff = "results/{genome}/data/dummy/genes.gtf"
     output:
       check = touch( "results/{genome}/done.check" )
     params:
@@ -112,4 +112,28 @@ rule create_snpeff_db:
       """
       cd {code_dir}/{params.snpeff_path}
       snpEff build -Xmx24G -c {code_dir}/{input.conf} -dataDir $(pwd)/data -gtf22 -v dummy
+      """
+
+rule run_snpeff:
+    input:
+      db = "results/{genome}/done.check",
+      vcf = "data/genotypes_{genome}.vcf"
+    output:
+      vcf = "results/{genome}/genotypes_{genome}_ann.vcf"
+    log: "results/{genome}/run_snpeff_{genome}.log"
+    params:
+      snpeff_path = "results/{genome}"
+    container: c_ml
+    shell:
+      """
+      cd {code_dir}/{params.snpeff_path}
+      ln -s ../../{input.vcf} ./
+      snpEff ann -stats \
+          -no-downstream \
+          -no-intergenic \
+          -no-intron \
+          -no-upstream \
+          -no-utr \
+          -v \
+          dummy genotypes_{wildcards.genome}.vcf > ../../{output.vcf} 2> ../../{log}
       """

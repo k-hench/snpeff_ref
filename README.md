@@ -2,7 +2,17 @@
 
 Testing for `snpEff` response to changing the `REF` allele with an ancestral `ALT` allele
 
-Basic idea
+## TL;DR
+
+Run `snpEff` using `snakemake`
+
+```sh
+snakemake -c 1 --use-conda --use-singularity -R all
+```
+
+Compare the resulting annotations in `results/genome_1/genotypes_genome_1_ann.vcf` vs. `results/genome_2/genotypes_genome_2_ann.vcf`
+
+## Basic idea
 
 1. start codon
 2. some amino acid (syn)
