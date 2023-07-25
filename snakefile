@@ -4,7 +4,7 @@ snakemake -c 1 --use-conda --use-singularity
 snakemake --dag  --rerun-triggers mtime -R all | dot -Tsvg > dag_snpeff_db.svg
 """
 import os
-GENOMES = ["genome_1", "genome_2"]
+GENOMES = ["genome_1", "genome_2", "genome_3"]
 c_ml = "docker://khench/re_load:v0.1"
 code_dir = os.getcwd()
 
