@@ -1,0 +1,7 @@
+##gff-version 3
+##sequence-region chr1 1 24
+##species dummy
+chr1	manual	gene	6	17	.	+	.	ID=gene1;mol_type=genomic_DNA;
+chr1	manual	mRNA	6	17	.	+	.	ID=gene1_r1;Parent=gene1;Name=RNA1;gbkey=mRNA;gene=gene1;mol_type=genomic_DNA;
+chr1	manual	exon	6	17	.	+	.	ID=gene1_e1;Parent=gene1_r1;mol_type=genomic_DNA;
+chr1	manual	CDS	6	17	.	+	0	ID=gene1_c1;Parent=gene1_r1;mol_type=genomic_DNA;

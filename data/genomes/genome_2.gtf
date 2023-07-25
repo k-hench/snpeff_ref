@@ -1,0 +1,5 @@
+#gtf-version 2.2
+chr1	manual	gene	6	17	.	+	.	gene_id "gene1"; transcript_id ""; db_xref "GeneID:gene1"; mol_type "genomic_DNA"; gbkey "Gene"; gene "gene1"; gene_biotype "protein_coding"; 
+chr1	manual	transcript	6	17	.	+	.	gene_id "gene1"; transcript_id "gene1_r1";
+chr1	manual	exon	6	17	.	+	.	gene_id "gene1"; transcript_id "gene1_r1";
+chr1	manual	CDS	6	17	.	+	0	gene_id "gene1"; transcript_id "gene1_r1"; gbkey "CDS"; gene "gene1"; protein_id "prot_1"; exon_number "1";
