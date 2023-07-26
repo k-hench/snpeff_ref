@@ -128,7 +128,7 @@ rule run_snpeff:
       """
       cd {code_dir}/{params.snpeff_path}
       ln -s ../../{input.vcf} ./
-      snpEff ann -stats \
+      snpEff ann -stats stats.html \
           -no-downstream \
           -no-intergenic \
           -no-intron \
